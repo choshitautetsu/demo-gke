@@ -18,10 +18,11 @@ resource "google_container_node_pool" "general" {
   name    = "general"
   cluster = google_container_cluster.gke.id
 
-  autoscaling {
-    total_min_node_count = 2
-    total_max_node_count = 3
-  }
+  node_count = 2 
+  # autoscaling {
+  #   total_min_node_count = 2
+  #   total_max_node_count = 3
+  # }
 
   management {
     auto_repair  = true
@@ -30,7 +31,7 @@ resource "google_container_node_pool" "general" {
 
   node_config {
     preemptible  = false
-    machine_type = "e2-medium"
+    machine_type = "e2-standard-2"
 
     labels = {
       role = "general"
