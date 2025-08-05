@@ -35,8 +35,11 @@ resource "google_container_cluster" "gke" {
   }
 
   private_cluster_config {
+    #节点没有公共IP，节点和Pod只能使用私有IP地址
     enable_private_nodes    = true
+    #GKE控制面的API服务器（Control Plane）只有公共IP可访问，不启用私有访问端点
     enable_private_endpoint = false
+    #用于为控制面私有IP分配一个CIDR段（在本例中，虽然关闭了private_endpoint，但配置了该字段作为限制）
     master_ipv4_cidr_block  = "192.168.0.0/28"
   }
 
